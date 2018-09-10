@@ -4,6 +4,7 @@ import java.io.*;
 import java.nio.file.Paths;
 
 import org.jsfml.graphics.*;
+import org.jsfml.system.*;
 import org.jsfml.window.*;
 import org.jsfml.window.event.*;
 
@@ -24,12 +25,14 @@ public class Main {
 		
 		// Declare textures and sprites
 		Texture BigfootFrontTexture = new Texture();
-		Sprite Bigfoot_front;
+		Texture BigfootBackTexture = new Texture();
+		Sprite bigfootSprite;
 		
 		// load up things, etc.
 		try {
 			BigfootFrontTexture.loadFromFile(Paths.get("resources/bigfoot_front.png"));
-			Bigfoot_front = new Sprite(BigfootFrontTexture);
+			BigfootBackTexture.loadFromFile(Paths.get("resources/bigfoot_back.png"));
+			bigfootSprite = new Sprite(BigfootFrontTexture);
 		}
 		catch (IOException e){
 			e.printStackTrace();
@@ -43,8 +46,46 @@ public class Main {
 			
 			// Event processing
 			for (Event event : app.pollEvents()){
-				if (event.type == Event.Type.CLOSED) 
+				switch (event.type) {
+				case CLOSED:
 					app.close();
+					break;
+				
+				case KEY_PRESSED:
+					KeyEvent keyEvent = event.asKeyEvent();
+					
+					Vector2f Spritepos = bigfootSprite.getPosition();
+					
+					float Spriterot = bigfootSprite.getRotation();
+					
+					switch (keyEvent.key) {
+					case W:
+						bigfootSprite.setPosition(new Vector2f(Spritepos.x, Spritepos.y - 5));
+						break;
+						
+					case A:
+						bigfootSprite.setPosition(new Vector2f(Spritepos.x - 5, Spritepos.y));
+						break;
+						
+					case S:
+						bigfootSprite.setPosition(new Vector2f(Spritepos.x, Spritepos.y + 5));
+						break;
+						
+					case D:
+						bigfootSprite.setPosition(new Vector2f(Spritepos.x + 5, Spritepos.y));
+						break;
+						
+					case RIGHT:
+						bigfootSprite.setRotation(Spriterot + 1);
+						break;
+							
+					case LEFT:
+						bigfootSprite.setRotation(Spriterot - 1);
+						break;
+					
+					}
+					
+				}
 			}
 			
 			// Drawing and things
@@ -52,12 +93,10 @@ public class Main {
 			app.clear(Color.WHITE);
 			
 			// Draw things
-			app.draw(Bigfoot_front);
+			app.draw(bigfootSprite);
 			
 			
 			app.display();
 		}
-		
-		scanner.nextLine();
 	}
 }
