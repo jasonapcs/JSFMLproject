@@ -30,7 +30,7 @@ public class Main {
 			
 			// Drawing and things
 			
-			app.clear(Color.RED);
+			app.clear(Color.WHITE);
 			
 			// Draw things
 			
