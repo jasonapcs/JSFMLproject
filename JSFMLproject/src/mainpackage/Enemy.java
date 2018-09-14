@@ -11,7 +11,6 @@ import org.jsfml.graphics.Texture;
 import org.jsfml.system.Vector2f;
 
 public class Enemy implements Drawable {
-	private boolean facingBack = false;
 	private Texture enemyTexture;
 	private Sprite enemySprite;
 	public Vector2f pos;
