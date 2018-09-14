@@ -17,6 +17,7 @@ public class Main {
 	
 	public static RenderWindow app;
 	
+	public static View appview = new View();
 	
 	public static void main(String[] args) {
 		
@@ -49,6 +50,10 @@ public class Main {
 		app = new RenderWindow(new VideoMode(1000, 784), title);
 		
 		app.setFramerateLimit(60);
+		
+		appview = (View) app.getDefaultView();
+		
+		app.setView(appview);
 		
 		// Declare textures and sprites
 		Player player;
@@ -87,6 +92,12 @@ public class Main {
 					app.close();
 					break;
 				
+				case RESIZED:
+					appview.setSize(
+							new Vector2f(event.asSizeEvent().size.x, event.asSizeEvent().size.y));
+					app.setView(appview);
+					break;
+					
 				case KEY_PRESSED:
 					KeyEvent keyEvent = event.asKeyEvent();
 					
