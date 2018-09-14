@@ -62,6 +62,9 @@ public class Main {
 		
 		Texture backgroundImageTexture = new Texture();
 		Sprite backgroundImage;
+		
+		Texture rubberDuckTexture = new Texture();
+		Sprite rubberDuck;
 
 		
 		// load up things, etc.
@@ -69,11 +72,14 @@ public class Main {
 			player = new Player("resources/bigfoot_back.png", "resources/bigfoot_front.png");
 			
 			for (int i = 0; i < arrEnemy.length; i++) {
-				arrEnemy[i] = new Enemy("resources/bigfoot_zombie_front.png");
+				arrEnemy[i] = new Enemy("resources/bigfoot_zombie_front.png", 300.f + 150.f * i, 300.f);
 			}
 			
 			backgroundImageTexture.loadFromFile(Paths.get("resources/battlemapdesert.png"));
 			backgroundImage = new Sprite(backgroundImageTexture);
+			
+			rubberDuckTexture.loadFromFile(Paths.get("resources/Rubber_duck.png"));
+			rubberDuck = new Sprite(rubberDuckTexture);
 		}
 		catch (IOException e){
 			e.printStackTrace();
@@ -102,6 +108,13 @@ public class Main {
 					KeyEvent keyEvent = event.asKeyEvent();
 					
 					switch (keyEvent.key) {
+					case F1:
+						RenderWindow w = new RenderWindow(new VideoMode(1006, 1092), "DUCK", WindowStyle.NONE);
+						w.clear();
+						w.draw(rubberDuck);
+						w.display();	
+						break;
+					
 					case ESCAPE:
 						player.toggleFacingDir();
 						break;

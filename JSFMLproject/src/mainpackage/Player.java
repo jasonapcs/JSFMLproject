@@ -13,6 +13,7 @@ public class Player implements Drawable {
 	private Texture playerTextureFront;
 	private Sprite playerSprite;
 	public Vector2f pos;
+	public int health;
 	
 	Player(String pathToBackTexture, String pathToFrontTexture) throws IOException {
 		playerTextureBack = new Texture();
@@ -25,6 +26,7 @@ public class Player implements Drawable {
 		playerSprite.setOrigin(60.f, 65.f);
 		pos = new Vector2f(384.f, 400.f);
 		playerSprite.setPosition(pos);
+		health = 20;
 	}
 	
 	public void changeRot(float f) {

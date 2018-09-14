@@ -14,15 +14,17 @@ public class Enemy implements Drawable {
 	private Texture enemyTexture;
 	private Sprite enemySprite;
 	public Vector2f pos;
+	public int health;
 	
-	Enemy(String pathToFrontTexture) throws IOException {
+	Enemy(String pathToFrontTexture, float x, float y) throws IOException {
 		enemySprite = new Sprite();
 		enemyTexture = new Texture();
 		enemyTexture.loadFromFile(Paths.get(pathToFrontTexture));
 		enemySprite.setTexture(enemyTexture);
 		enemySprite.setOrigin(60.f, 65.f);
-		pos = new Vector2f(600.f, 300.f);
+		pos = new Vector2f(x, y);
 		enemySprite.setPosition(pos);
+		health = 100;
 	}
 	
 	public void changeRot(float f) {
