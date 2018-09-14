@@ -46,24 +46,29 @@ public class Main {
 			break;
 		}
 		
-		app = new RenderWindow(VideoMode.getDesktopMode(), title);
+		app = new RenderWindow(new VideoMode(1000, 784), title);
 		
 		app.setFramerateLimit(60);
 		
 		// Declare textures and sprites
-		Texture BigfootFrontTexture = new Texture();
-		Texture BigfootBackTexture = new Texture();
-		Sprite bigfootSprite;
+		Player player;
+		Enemy arrEnemy[] = new Enemy[4];
 		
-		boolean Bigfootfront = true;
+		
+		Texture backgroundImageTexture = new Texture();
+		Sprite backgroundImage;
+
 		
 		// load up things, etc.
 		try {
-			BigfootFrontTexture.loadFromFile(Paths.get("resources/bigfoot_front.png"));
-			BigfootBackTexture.loadFromFile(Paths.get("resources/bigfoot_back.png"));
-			bigfootSprite = new Sprite(BigfootFrontTexture);
-			bigfootSprite.setOrigin(60.f, 65.f);
-			bigfootSprite.setPosition(100.f, 100.f);
+			player = new Player("resources/bigfoot_back.png", "resources/bigfoot_front.png");
+			
+			for (int i = 0; i < arrEnemy.length; i++) {
+				arrEnemy[i] = new Enemy("resources/bigfoot_zombie_front.png");
+			}
+			
+			backgroundImageTexture.loadFromFile(Paths.get("resources/battlemapdesert.png"));
+			backgroundImage = new Sprite(backgroundImageTexture);
 		}
 		catch (IOException e){
 			e.printStackTrace();
@@ -85,73 +90,62 @@ public class Main {
 				case KEY_PRESSED:
 					KeyEvent keyEvent = event.asKeyEvent();
 					
-					Vector2f Spritepos = bigfootSprite.getPosition();
-					
-					float Spriterot = bigfootSprite.getRotation();
-					
 					switch (keyEvent.key) {
 					case ESCAPE:
-						if (Bigfootfront) {
-							bigfootSprite.setTexture(BigfootBackTexture);
-							Bigfootfront = false;
-						}
-						else {
-							bigfootSprite.setTexture(BigfootFrontTexture);
-							Bigfootfront = true;
-						}
+						player.toggleFacingDir();
 						break;
 					
 					case W:
 						if (keyEvent.shift) {
-							bigfootSprite.setPosition(new Vector2f(Spritepos.x, Spritepos.y - 50));
+							player.changePos(0, -50);
 						}
 						else {
-							bigfootSprite.setPosition(new Vector2f(Spritepos.x, Spritepos.y - 5));
+							player.changePos(0, -5);
 						}
 						break;
 						
 					case A:
 						if (keyEvent.shift) {
-							bigfootSprite.setPosition(new Vector2f(Spritepos.x - 50, Spritepos.y));
+							player.changePos(-50, 0);
 						}
 						else {
-							bigfootSprite.setPosition(new Vector2f(Spritepos.x - 5, Spritepos.y));
+							player.changePos(-5, 0);
 						}
 						break;
 						
 					case S:
 						if (keyEvent.shift) {
-							bigfootSprite.setPosition(new Vector2f(Spritepos.x, Spritepos.y + 50));
+							player.changePos(0, 50);
 						}
 						else {
-							bigfootSprite.setPosition(new Vector2f(Spritepos.x, Spritepos.y + 5));
+							player.changePos(0, 5);
 						}
 						break;
 						
 					case D:
 						if (keyEvent.shift) {
-							bigfootSprite.setPosition(new Vector2f(Spritepos.x + 50, Spritepos.y));
+							player.changePos(50, 0);
 						}
 						else {
-							bigfootSprite.setPosition(new Vector2f(Spritepos.x + 5, Spritepos.y));
+							player.changePos(5, 0);
 						}
 						break;
 						
 					case RIGHT:
 						if (keyEvent.shift) {
-							bigfootSprite.setRotation(Spriterot + 10);
+							player.changeRot(10);
 						}
 						else {
-							bigfootSprite.setRotation(Spriterot + 1);
+							player.changeRot(1);
 						}
 						break;
 							
 					case LEFT:
 						if (keyEvent.shift) {
-							bigfootSprite.setRotation(Spriterot - 10);
+							player.changeRot(-10);
 						}
 						else {
-							bigfootSprite.setRotation(Spriterot - 1);
+							player.changeRot(-1);
 						}
 						break;
 					
@@ -165,7 +159,13 @@ public class Main {
 			app.clear(Color.WHITE);
 			
 			// Draw things
-			app.draw(bigfootSprite);
+			app.draw(backgroundImage);
+			
+			for (int i = 0; i < arrEnemy.length; i++) {
+				app.draw(arrEnemy[i]);
+			}
+			
+			app.draw(player);
 			
 			
 			app.display();
