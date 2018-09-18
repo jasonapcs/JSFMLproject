@@ -8,7 +8,7 @@ import org.jsfml.system.*;
 
 public class Player implements Drawable {
 	
-	private boolean facingBack = false;
+	private boolean facingBack = true;
 	private Texture playerTextureBack;
 	private Texture playerTextureFront;
 	private Sprite playerSprite;
@@ -23,8 +23,7 @@ public class Player implements Drawable {
 		playerSprite = new Sprite();
 		playerTextureBack.loadFromFile(Paths.get(pathToBackTexture));
 		playerTextureFront.loadFromFile(Paths.get(pathToFrontTexture));
-		playerSprite.setTexture(playerTextureFront);
-		this.toggleFacingDir();
+		playerSprite.setTexture(playerTextureBack);
 		playerSprite.setOrigin(60.f, 65.f);
 		pos = new Vector2f(384.f, 400.f);
 		playerSprite.setPosition(pos);

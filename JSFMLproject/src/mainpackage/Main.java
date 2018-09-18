@@ -105,10 +105,20 @@ public class Main {
 					
 					switch (keyEvent.key) {
 					case F1:
-						RenderWindow w = new RenderWindow(new VideoMode(1006, 1092), "DUCK", WindowStyle.NONE);
-						w.clear();
-						w.draw(rubberDuck);
-						w.display();	
+						RenderWindow duckWindow = new RenderWindow(new VideoMode(1006, 1092), "DUCK", WindowStyle.NONE);
+						duckWindow.clear();
+						duckWindow.draw(rubberDuck);
+						duckWindow.display();
+						Event tempe;
+						boolean tempb = true;
+						do {
+							tempe = duckWindow.waitEvent();
+							if (tempe.type == Event.Type.KEY_PRESSED) {
+								tempb = false;
+							}
+						}
+						while (tempb);
+						duckWindow.close();
 						break;
 					
 					case ESCAPE:
