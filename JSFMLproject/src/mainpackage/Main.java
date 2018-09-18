@@ -8,12 +8,9 @@ import org.jsfml.system.*;
 import org.jsfml.window.*;
 import org.jsfml.window.event.*;
 
-import java.util.Scanner;
 import java.math.*;
 
 public class Main {
-
-	static Scanner scanner = new Scanner(System.in);
 	
 	public static RenderWindow app;
 	
@@ -84,7 +81,6 @@ public class Main {
 		catch (IOException e){
 			e.printStackTrace();
 			app.close();
-			scanner.nextLine();
 			return;
 		}
 		
