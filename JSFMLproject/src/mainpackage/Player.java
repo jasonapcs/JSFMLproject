@@ -14,6 +14,8 @@ public class Player implements Drawable {
 	private Sprite playerSprite;
 	public Vector2f pos;
 	public int health;
+	private RectangleShape HealthBar;
+	
 	
 	Player(String pathToBackTexture, String pathToFrontTexture) throws IOException {
 		playerTextureBack = new Texture();
@@ -27,6 +29,11 @@ public class Player implements Drawable {
 		pos = new Vector2f(384.f, 400.f);
 		playerSprite.setPosition(pos);
 		health = 20;
+		HealthBar = new RectangleShape();
+		HealthBar.setPosition(pos.x - 60, pos.y - 100);
+		HealthBar.setFillColor(new Color(22, 21, 19, 214));
+		HealthBar.setSize(new Vector2f(120.f, 20.f));
+		//HealthBar.SetSubRect(new IntRect(0,0,(health/20*120),14));
 	}
 	
 	public void changeRot(float f) {
@@ -40,11 +47,13 @@ public class Player implements Drawable {
 	public void setPos(float x, float y) {
 		pos = new Vector2f(x, y);
 		playerSprite.setPosition(pos);
+		HealthBar.setPosition(pos.x - 60, pos.y - 100);
 	}
 	
 	public void changePos(float deltaX, float deltaY) {
 		pos = new Vector2f(pos.x + deltaX, pos.y + deltaY);
 		playerSprite.setPosition(pos);
+		HealthBar.setPosition(pos.x - 60, pos.y - 100);
 	}
 	
 	public void toggleFacingDir() {
@@ -61,6 +70,7 @@ public class Player implements Drawable {
 	@Override
 	public void draw(RenderTarget arg0, RenderStates arg1) {
 		arg0.draw(playerSprite);
+		arg0.draw(HealthBar);
 	}
 
 }
