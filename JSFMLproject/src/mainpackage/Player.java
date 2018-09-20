@@ -27,7 +27,7 @@ public class Player implements Drawable {
 		playerTextureFront.loadFromFile(Paths.get(pathToFrontTexture));
 		playerSprite.setTexture(playerTextureBack);
 		playerSprite.setOrigin(60.f, 65.f);
-		pos = new Vector2f(384.f, 400.f);
+		pos = new Vector2f(384.f, 500.f);
 		playerSprite.setPosition(pos);
 		health = 200;
 		HealthBar = new RectangleShape();
@@ -61,8 +61,6 @@ public class Player implements Drawable {
 		playerSprite.setPosition(pos);
 		HealthBar.setPosition(pos.x - 60, pos.y - 100);
 		HealthView.setPosition(pos.x - 60, pos.y - 100);
-		
-		health--;
 	}
 	
 	public void toggleFacingDir() {
@@ -76,11 +74,29 @@ public class Player implements Drawable {
 		}
 	}
 	
+	public boolean isTouching(Sprite s) {
+		return playerSprite.getGlobalBounds().intersection(s.getGlobalBounds()) != null;
+	}
+	
+	public void loseHealth(int i) {
+		health -= i;
+		playerSprite.setColor(new Color(255, 55, 0));
+	}
+	
+	public void gainHealth(int i) {
+		health += i;
+		playerSprite.setColor(new Color(16, 255, 0));
+	}
+	
+	public void setSpriteColor(Color c) {
+		playerSprite.setColor(c);
+	}
+	
 	private void die(RenderTarget arg0) {
 		JOptionPane.showMessageDialog(null, "YOU DIED", 
 				"YOU DIED", JOptionPane.OK_OPTION);
 		health = 200;
-		this.setPos(384.f, 400.f);
+		this.setPos(384.f, 500.f);
 		this.setRot(0.f);
 		if(!facingBack) toggleFacingDir();
 	}

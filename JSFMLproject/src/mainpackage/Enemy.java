@@ -11,8 +11,8 @@ import org.jsfml.graphics.Texture;
 import org.jsfml.system.Vector2f;
 
 public class Enemy implements Drawable {
-	private Texture enemyTexture;
-	private Sprite enemySprite;
+	public Texture enemyTexture;
+	public Sprite enemySprite;
 	public Vector2f pos;
 	public int health;
 	

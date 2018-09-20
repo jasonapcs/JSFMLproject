@@ -184,6 +184,13 @@ public class Main {
 				}
 			}
 			
+			for (int i = 0; i < arrEnemy.length; i++) {
+				if (player.isTouching(arrEnemy[i].enemySprite))
+					player.loseHealth(1);
+			}
+			
+			player.setSpriteColor(Color.WHITE);
+			
 			// Drawing and things
 			
 			app.clear(Color.WHITE);
