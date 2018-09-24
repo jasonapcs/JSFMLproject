@@ -18,6 +18,9 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
+		final int windowWidth = 1000;
+		final int windowHeight = 784;
+		
 		String title;
 		
 		switch ((int)((Math.random() * 100) % 6)){
@@ -44,7 +47,7 @@ public class Main {
 			break;
 		}
 		
-		app = new RenderWindow(new VideoMode(1000, 784), title);
+		app = new RenderWindow(new VideoMode(windowWidth, windowHeight), title);
 		
 		app.setFramerateLimit(60);
 		
